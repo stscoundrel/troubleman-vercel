@@ -6,4 +6,4 @@ Endpoints are hardcoded to point to my Github user. Feel free to fork your own v
 
 `https://troubleman.vercel.app/api/repos/stscoundrel`
 
-`https://troubleman.vercel.app/api/pulls/stscoundrel`
+`https://troubleman.vercel.app/api/issues/stscoundrel`
