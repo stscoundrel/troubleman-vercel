@@ -8,11 +8,26 @@ import (
 	"github.com/stscoundrel/troubleman/issues"
 )
 
+type Response struct {
+	ReposCount   int
+	IssuesCount  int
+	Repositories []issues.Repository
+}
+
 func Handler(w http.ResponseWriter, r *http.Request) {
 	repositoriesResult, repositoriesError := issues.GetRepositories("stscoundrel")
 
 	if repositoriesError == nil {
-		jsonResult, _ := json.Marshal(repositoriesResult)
+		reposCount := len(repositoriesResult)
+		issuesCount := 0
+
+		for _, repo := range repositoriesResult {
+			issuesCount = issuesCount + repo.Count
+		}
+
+		response := Response{reposCount, issuesCount, repositoriesResult}
+
+		jsonResult, _ := json.Marshal(response)
 
 		fmt.Fprintf(w, string(jsonResult))
 	} else {
